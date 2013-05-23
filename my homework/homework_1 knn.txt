@@ -1,0 +1,111 @@
+n 3.0.0 (2013-04-03) -- "Masked Marvel"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+library(class)
+library(ggplot2)
+
+ credit <- read.table('c:/Users/Reid/Documents/GitHub/data_science_class_examples/homework/homework_1.txt')
+ #assign the data to "credit"
+ head(credit)
+  
+ summary(credit)
+ 
+ colnames(credit) <- c('Status', 'Duration', 'Instal', 'Purpose', 'Savings', 'Employed', 'M/S', 'Residence', '#liable', 'guarantors', 'Oplans', 'C@bank', 'property', 'tele', 'Amount', 'Job', 'Housing', 'CHistory', 'oDebtors', 'Foreig', 'IC1', 'IC2', 'IC3', 'IC4', 'Classification') 
+ ## named all columns, so i could wrap my head around it better
+ colnames(credit)
+ ## tested to see how it looked
+ label <- credit$Classification
+ ## have to name my dependent variable
+ credit$Classification <-NULL                        
+ ## why do we have to NULL, if we know there are always values?
+ 
+ nrow(credit)
+ # counts the amount of rows
+ N <- nrow(credit)
+ # assign # of rows to N
+ 
+ train.pct <- .8
+ # percentage of data that will be used as my training data, 80%
+
+train.index <- sample(1:N, train.pct * N)
+# assign train.index to what my sample size will be for exercise
+train.data <- credit[train.index, ]
+# assigning the data to my train.data
+test.data <- credit[-train.index, ]
+# assigning the data to my test.data
+
+train.classification <- as.factor(as.matrix(label)[train.index, ])
+# creating matrix for my train data
+test.classification <- as.factor(as.matrix(label)[-train.index, ])
+# creating matrix for my test data
+err.rates <- data.frame()
+# err.rate data set to be filled later
+ 
+max.k <- 30
+# number of other points with closest distance to each test case
+
+ for (k in 1:max.k) 
+ { 
+      knn.fit<- knn(
+              train =train.data,
+              test = test.data,
+              cl = train.classification,
+              k = k 
+ )
+ 
+## running the knn algo
+ 
+cat('\n', 'k = ', k, ', train.pct = ', train.pct, '\n', sep=' ')    
+## assign the print layout (why use cat?)
+
+
+print(table(test.classification, knn.fit))
+## display table
+
+this.err <- sum(test.classification !=knn.fit) / length(test.classification)
+## calculates the error rate for knn with the 30 closest other points as my closest neighbors
+err.rates <- rbind(err.rates, this.err)
+## combines the rows together
+}
+
+results <- data.frame(1:max.k, err.rates)
+# creates results for the data frame for K and error rate
+names(results) <- c('k', 'err.rate')
+# names the the x,y axis
+
+title <- paste('knn results (train.pct = ', train.pct, ')', sep=' ')
+
+
+
+results.plot <-ggplot(results, aes(x=k, y=err.rate)) + geom_point() + geom_line()
+classification.plot <- results.plot + ggtitle(title)
+results.plot
+
+
+## I'm very disappointed in my coding for this week's assignment.  
+## It's hard to really make any analysis from my poor KNN reading.
+## My methodology was simply to get my code to work, and while it doesn't push out errors, 
+## it's far from suitable. My brief explanation of KNN is as follows, take a point within 
+## a data set and compare it to it's surrounding neighbors, and "hopefully" be able to classify
+## the set point based off it's proximity to similar characteristics with it said neighbors.
+## Bayes, takes a predictive approach from a data set, taking the possibile outcome from the 
+## total amount of outcomes from the data.
+## Cross Validation is running your test data against your train data more than once, preferably,
+## 4-5X in order to minimize outliers (or skew) in your data. I know there should be a loop in 
+## the code, but I just ran out of time. However, it wasn't for a lack of effort. 
+## I have included more code that I wrote (basically practice for me on coding). 
