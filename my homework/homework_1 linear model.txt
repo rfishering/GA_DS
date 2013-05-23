@@ -1,0 +1,74 @@
+Notepad++ v6.3.3 new features:
+
+1.  Add remembering folding between sessions feature.
+2.  Optimize startup (loading last session) performance.
+3.  Add multi-select feature in Document List Panel and Close/Keep the selected files commands (right click).
+4.  Add new spell checker plugin(DSpellCheck).
+
+
+
+
+Included plugins:
+
+1.  DSpellCheck v1.1.4
+2.  NppFTP 0.24.1
+3.  NppExport v0.2.8
+4.  Plugin Manager 1.0.8
+5.  Converter 3.0
+
+## load libraries
+library(DMwR)
+library(ggplots2)
+
+
+
+ credit <- read.table('c:/Users/Reid/Documents/GitHub/data_science_class_examples/homework/homework_1.txt')
+## assign the data to credit
+ head(credit, 10)
+
+ colnames(credit) <- c('Status', 'Duration', 'Instal', 'Purpose', 'Savings', 'Employed', 'M/S', 'Residence', '#liable', 'guarantors', 'Oplans', 'C@bank', 'property', 'tele', 'Amount', 'Job', 'Housing', 'CHistory', 'oDebtors', 'Foreig', 'IC1', 'IC2', 'IC3', 'IC4', 'Classification') 
+## named the columns for my own benefit
+ colnames(credit)
+ head(credit)
+ plot(credit)
+## wanted to see how it plotted out
+ 
+ fit <- lm(Classification ~ ., data=credit)
+ ## Linear model with classification being my dependent variable
+ summary(fit)
+
+ 
+ fit.2<- update(fit, .~. -Residence)
+ ## linear model with classification, subtracting out Residence 
+ summary(fit.2)
+
+
+ fit.3<- update(fit.2, .~. -IC4)
+ summary(fit.3)
+
+
+ fit.4<- update(fit.3, .~. -IC3)
+ summary(fit.4)
+
+
+ fit.5<- update(fit.4, .~. -IC1)
+ summary(fit.5)
+
+
+ fit.6<- update(fit.5, .~. -property)
+ summary(fit.6)
+
+
+ fit.7<- update(fit.6, .~. -guarantors)
+ summary(fit.7)
+
+
+
+ fit.8<- update(fit.7, .~. -IC2)
+ summary(fit.8)
+
+
+ ## I know this doesn't apply as well as the other models we have covered in class. 
+ ## But this was the only code I wrote, where I got the outcome I was half expecting 
+ ## the code would spit out. I promise i put in more than 8 hours in trying to code
+ ## and I feel i've turned a corner this week with Github and coding in general.  
