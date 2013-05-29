@@ -1,0 +1,32 @@
+# Homework 2
+
+## Journal Review, Word Usage 
+
+Objective
+: The paper covers the tendencies of communication that surround complex networks or communities.
+The goal of the paper was to assess if there are unique language traits found within 
+communities, and if they could predict the communities for each user.  
+
+Hypothesis
+: The authors hypothesise that communities communicate with similar word usage through social networks. 
+
+Methods
+: The hypothesis was tested using data from Twitter. The authors constructed their networks by compiling 
+users into groups that interacted with one another. Once groups were established, the groups were 
+then tested for word frequencies specifically used by those users. They tested their groupings with
+maximum modularity and found their groupings to be far greater than a random network. They also tested 
+their groupings using the map equation and still found the groupings to be sufficient. After the 
+network tests, the study tried to find the top 100 words utilized by these groupings. Using the word usage
+and the networks the authors used Euclidean distance to test their pairings (I'm assuming this is 
+similar to KNN). Their methodology worked well as the study was able to group a user, using 1000 of 
+their words, to correctly group them 72% accuracy.  
+
+Conclusions
+: I found this paper to be entertaining and well organized. While not familar with the statistical 
+algorithms, I was able to follow the basic procedures. I appreciated the layout of the paper and how
+they included the methodologies with the corresponding equations used for their study. The study was 
+intriguing because I want to know how the differences between Map Equation and Maximum Modularity, and 
+I appreciate the authors' willingness to show both results. Last, within the social networking
+world, is classifying a user at 73% a substantial rate of success?   
+
+
